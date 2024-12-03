@@ -15,5 +15,4 @@ config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
 [dotnet]
-
 project/assembly_name="Proxima-Into The Space"
