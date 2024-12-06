@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://ccmyxmw5s2rls"]
+
+[ext_resource type="Texture2D" uid="uid://cixquprv5k3k5" path="res://icon.svg" id="1_v3t0a"]
+[ext_resource type="Script" path="res://Icon.cs" id="2_patwb"]
+
+[node name="Shasin" type="Node2D"]
+
+[node name="Icon" type="Sprite2D" parent="."]
+position = Vector2(271.5, 300)
+scale = Vector2(0.570313, 0.53125)
+texture = ExtResource("1_v3t0a")
+script = ExtResource("2_patwb")
