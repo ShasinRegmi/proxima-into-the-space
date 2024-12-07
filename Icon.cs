@@ -32,10 +32,8 @@ public partial class Icon : Sprite2D
         }
         if (Input.IsKeyPressed(Key.D))
         {
-            movement.X += speed; // Move right
+            movement.X += speed; // Move r
         }
-
-
         // Move the sprite
         Position += movement;
     }
