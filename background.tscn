@@ -1,54 +1,75 @@
-[gd_scene load_steps=5 format=3 uid="uid://b0lgiqknrb4tc"]
+[gd_scene load_steps=6 format=3 uid="uid://b0lgiqknrb4tc"]
 
 [ext_resource type="PackedScene" uid="uid://b08gp5d7qsq1j" path="res://tile.tscn" id="1_76vuj"]
 [ext_resource type="Script" path="res://PlayerMovement.cs" id="1_uslu6"]
-[ext_resource type="Texture2D" uid="uid://ddqff8qv7ivs1" path="res://icon.svg" id="2_jtp6w"]
+[ext_resource type="Texture2D" uid="uid://dcdbj3q4ie22" path="res://Character.png" id="2_m70qn"]
+[ext_resource type="Texture2D" uid="uid://d3uh1aaoaptss" path="res://testParallaxBG.png" id="3_sa3gg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8jwct"]
-size = Vector2(65, 43)
+size = Vector2(38.25, 43)
 
 [node name="Node2D" type="Node2D"]
 
 [node name="Player" type="CharacterBody2D" parent="."]
-position = Vector2(336, 343)
+position = Vector2(142, 425)
 script = ExtResource("1_uslu6")
 
-[node name="Sprite2D" type="Sprite2D" parent="Player"]
-position = Vector2(-18.5, -9.375)
-scale = Vector2(0.507813, 0.337891)
-texture = ExtResource("2_jtp6w")
+[node name="PlayerModel" type="Sprite2D" parent="Player"]
+texture_filter = 1
+position = Vector2(-36, -8)
+scale = Vector2(2.54688, 2.81641)
+texture = ExtResource("2_m70qn")
+hframes = 4
+frame = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
-position = Vector2(-18.5, -9.5)
+[node name="PlayerCollision" type="CollisionShape2D" parent="Player"]
+position = Vector2(-36.125, -10)
 shape = SubResource("RectangleShape2D_8jwct")
 
-[node name="Camera2D" type="Camera2D" parent="Player"]
+[node name="PlayerCamera" type="Camera2D" parent="Player"]
 position = Vector2(-21, -9)
-zoom = Vector2(2.5, 2.5)
+zoom = Vector2(1.5, 1.5)
 
-[node name="Node2D" parent="." instance=ExtResource("1_76vuj")]
-position = Vector2(321, 397)
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
-[node name="Node2D2" parent="." instance=ExtResource("1_76vuj")]
-position = Vector2(420, 397)
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2(0, 20)
+motion_mirroring = Vector2(0, 870)
 
-[node name="Node2D5" parent="." instance=ExtResource("1_76vuj")]
+[node name="Background" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2(380, 235)
+scale = Vector2(2, 2)
+texture = ExtResource("3_sa3gg")
+
+[node name="Tile 3" parent="." instance=ExtResource("1_76vuj")]
 position = Vector2(519, 397)
 
-[node name="Node2D6" parent="." instance=ExtResource("1_76vuj")]
+[node name="Tile 4" parent="." instance=ExtResource("1_76vuj")]
 position = Vector2(616, 314)
 
-[node name="Node2D7" parent="." instance=ExtResource("1_76vuj")]
+[node name="Tile 5" parent="." instance=ExtResource("1_76vuj")]
 position = Vector2(713, 231)
 
-[node name="Node2D8" parent="." instance=ExtResource("1_76vuj")]
-position = Vector2(912, 231)
+[node name="Tile 6" parent="." instance=ExtResource("1_76vuj")]
+position = Vector2(563, 140)
 
-[node name="Node2D9" parent="." instance=ExtResource("1_76vuj")]
-position = Vector2(1075, 140)
+[node name="Tile 7" parent="." instance=ExtResource("1_76vuj")]
+position = Vector2(396, 42)
 
-[node name="Node2D3" parent="." instance=ExtResource("1_76vuj")]
+[node name="Tile 8" parent="." instance=ExtResource("1_76vuj")]
+position = Vector2(191, -39)
+
+[node name="Tile 9" parent="." instance=ExtResource("1_76vuj")]
+position = Vector2(351, -197)
+
+[node name="Tile 10" parent="." instance=ExtResource("1_76vuj")]
+position = Vector2(533, -273)
+
+[node name="Tile 11" parent="." instance=ExtResource("1_76vuj")]
 position = Vector2(223, 480)
 
-[node name="Node2D4" parent="." instance=ExtResource("1_76vuj")]
+[node name="Tile 12" parent="." instance=ExtResource("1_76vuj")]
 position = Vector2(124, 480)
+
+[node name="Tile 1" parent="." instance=ExtResource("1_76vuj")]
+position = Vector2(321, 397)

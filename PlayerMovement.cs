@@ -3,17 +3,23 @@ using System;
 
 public partial class PlayerMovement : CharacterBody2D
 {
-	public const float WalkSpeed = 300.0f;
-	public const float Gravity = 500.0f;
-	public const float JumpSpeed = -300f;
+	public const float WalkSpeed = 400.0f;
+	public  float Gravity = 2500.0f;
+	public bool hasJumped = false;
+	public const float JumpSpeed = -920f;
 
 
 	public override void _PhysicsProcess(double delta)
 	{
 		var velocity = Velocity;
+		
 
 		// handle gravity
 		if(!IsOnFloor()){
+			// Character falls faster after jump
+			if(hasJumped){
+				Gravity = 5500.0f;
+			}
 			velocity.Y += (float)delta * Gravity;
 		}
 
@@ -21,13 +27,22 @@ public partial class PlayerMovement : CharacterBody2D
 		// handle jump
 		if(Input.IsActionPressed("jump") && IsOnFloor()){
 			velocity.Y = JumpSpeed;
+			hasJumped = true;
+			
 		}
-		if(Input.IsActionPressed("ui_left")){
+		else{
+			hasJumped = false;
+			Gravity = 2500.0f;
+		}
+		if(Input.IsActionPressed("move_left")){
 			velocity.X = -WalkSpeed;
+			
 		}
 		
-		else if(Input.IsActionPressed("ui_right")){
+		else if(Input.IsActionPressed("move_right")){
+			
 			velocity.X = WalkSpeed;
+			
 		}
 
 		else{
