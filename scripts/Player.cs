@@ -3,38 +3,57 @@ using System;
 
 public partial class Player : CharacterBody2D
 {
-	public const float Speed = 300.0f;
-	public const float JumpVelocity = -400.0f;
+    [Export] public double Speed = 300.0;
+    [Export] public  double JumpVelocity = -400.0;
+    [Export] private double maxCharge = 1.0; // Max charge duration (in seconds)
+    [Export] private double minJumpForce = 200.0;
 
-	public override void _PhysicsProcess(double delta)
-	{
-		Vector2 velocity = Velocity;
+    private bool isChargingJump = false;
+    private double chargeTimer = 0.0;
 
-		// Add the gravity.
-		if (!IsOnFloor())
-		{
-			velocity += GetGravity() * (float)delta;
-		}
+    public override void _PhysicsProcess(double delta)
+    {
+        Vector2 velocity = Velocity;
 
-		// Handle Jump.
-		if (Input.IsActionJustPressed("ui_accept") && IsOnFloor())
-		{
-			velocity.Y = JumpVelocity;
-		}
+        // Add the gravity.
+        if (!IsOnFloor())
+        {
+            velocity += GetGravity() * (float)delta;
+        }
 
-		// Get the input direction and handle the movement/deceleration.
-		// As good practice, you should replace UI actions with custom gameplay actions.
-		Vector2 direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
-		if (direction != Vector2.Zero)
-		{
-			velocity.X = direction.X * Speed;
-		}
-		else
-		{
-			velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
-		}
+        // Handle jump charging and releasing.
+        if (Input.IsActionJustPressed("ui_accept"))
+        {
+            isChargingJump = true;
+            chargeTimer = 0.0;
+        }
 
-		Velocity = velocity;
-		MoveAndSlide();
-	}
+        if (isChargingJump && Input.IsActionPressed("ui_click"))
+        {
+            chargeTimer += delta;
+            chargeTimer = Math.Min(chargeTimer, maxCharge);
+        }
+
+        if (Input.IsActionJustReleased("ui_click") && IsOnFloor())
+        {
+            double chargeRatio = chargeTimer / maxCharge;
+            double jumpForce = Mathf.Lerp((float)minJumpForce, (float)JumpVelocity, (float)chargeRatio);
+            velocity.Y = (float)jumpForce;
+            isChargingJump = false;
+        }
+
+        // Get the input direction and handle the movement/deceleration.
+        Vector2 direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
+        if (direction != Vector2.Zero)
+        {
+            velocity.X = direction.X * (float)Speed;
+        }
+        else
+        {
+            velocity.X = Mathf.MoveToward(Velocity.X, 0, (float)Speed);
+        }
+
+        Velocity = velocity;
+        MoveAndSlide();
+    }
 }
