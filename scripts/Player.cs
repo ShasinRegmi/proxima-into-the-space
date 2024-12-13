@@ -28,13 +28,13 @@ public partial class Player : CharacterBody2D
             chargeTimer = 0.0;
         }
 
-        if (isChargingJump && Input.IsActionPressed("ui_click"))
+        if (isChargingJump && Input.IsActionPressed("ui_accept"))
         {
             chargeTimer += delta;
             chargeTimer = Math.Min(chargeTimer, maxCharge);
         }
 
-        if (Input.IsActionJustReleased("ui_click") && IsOnFloor())
+        if (Input.IsActionJustReleased("ui_accept") && IsOnFloor())
         {
             double chargeRatio = chargeTimer / maxCharge;
             double jumpForce = Mathf.Lerp((float)minJumpForce, (float)JumpVelocity, (float)chargeRatio);
